@@ -8,12 +8,7 @@ struct ELEMENTS
 	char Text;
 };
 
-
-int generateId(int& maxId)
-{
-	maxId++;
-	return maxId;
-}
+//----------------------------------Structure---------------------------------------\\
 
 void exit()
 {
@@ -27,7 +22,7 @@ void exit()
     cout << "**************************************" << endl;
 }
 
-void Decryption(ELEMENTS* crypt, int brCrypt) // Deshifrovane
+void Decryption(char* crypt, int brCrypt)
 {
 	int converter;
 	char decryptedText[100];
@@ -35,7 +30,7 @@ void Decryption(ELEMENTS* crypt, int brCrypt) // Deshifrovane
 
 	for (int i = 0; i < brCrypt; i++)
 	{
-		converter = int(crypt[i].Text);
+		converter = int(crypt[i]);
 
 		if (converter == '1')
 		{
@@ -88,26 +83,27 @@ void Decryption(ELEMENTS* crypt, int brCrypt) // Deshifrovane
 	}
 
 	cout << "Decrypted elements: ";
-	cout << "-----------------------------------" << endl;
 
-	for (int i = 1; i < brCrypt; i++)
+	for (int i = 0; i < brCrypt; i++)
 	{
-		//Tuk shte slojim pisaneto na notepad dokumenta
-		cout << decryptedText[i];
+		//NotePad
+		cout << decryptedText[i] << " ";
 	}
+	cout << endl;
+	cout << "-----------------------------------" << endl;
 
 	cout << endl;
 }
 
-void Encryption(ELEMENTS* crypt, int brCrypt) // Shifrovane
+void Encryption(char* crypt, int brCrypt) 
 {
 	int converter;
-	char encryptedText[100];
-    bool check = true;
+	char encryptedText[100] = {};
+	bool check = true;
 
 	for (int i = 0; i < brCrypt; i++)
 	{
-		converter = int(crypt[i].Text);
+		converter = int(crypt[i]);
 
 		if (converter == 'x')
 		{
@@ -148,55 +144,85 @@ void Encryption(ELEMENTS* crypt, int brCrypt) // Shifrovane
 		check = true;
 	}
 
-	cout << "-----------------------------------" << endl;
 	cout << "Encrypted elements: ";
 
-	for (int i = 1; i <= brCrypt-1; i++)
+	for (int i = 0; i < brCrypt; i++)
 	{
-		//Tuk shte slojim pisaneto na notepad dokumenta
-		cout << encryptedText[i];
-		Decryption(crypt, brCrypt);
+		//NotePad
+		cout << encryptedText[i] << " ";
+	}
+	cout << endl;
+
+	Decryption(encryptedText, brCrypt);
+}
+
+void mergeOfSets(ELEMENTS* crypt, int brCrypt)
+{
+	char b[100];
+	int countB;
+
+	cout << "-----------------------------------" << endl;
+	cout << "Enter the lenght of the array1: "; cin >> brCrypt;
+	cout << "Enter the lenght of the array2: "; cin >> countB;
+	cout << "-----------------------------------" << endl;
+
+	cout << "First Elements: ";
+	for (int i = 0; i < brCrypt; i++)
+	{
+		cin >> crypt[i].Text;
 	}
 
+	cout << "Second Elements: ";
+	for (int i = 0; i < countB; i++)
+	{
+		cin >> b[i];
+	}
+
+	char c[100];
+	int n = brCrypt + countB;
+
+	int br = 0;
+
+	for (int i = 0; i < brCrypt; i++)
+	{
+		c[i] = crypt[i].Text;
+		br++;
+	}
+	for (int i = 0; i < countB; i++)
+	{
+		c[br++] = b[i];
+	}
+
+	for (int i = 0; i < brCrypt; i++)
+	{
+		for (int j = brCrypt; j < n; j++)
+		{
+			if (c[i] == c[j])
+			{
+				c[i] = '~';
+
+			}
+		}
+	}
+
+	char found[100];
+	int br1 = 0;
+	cout << "-----------------------------------" << endl;
+	
+	cout << "Merge of set: ";
+	for (int i = 0; i < n; i++)
+	{
+		if (c[i] != '~')
+		{
+			found[br1++] = c[i];
+			cout << c[i] << " ";
+		}
+	}
 	cout << endl;
+
+	Encryption(found, br1);
 }
-/*
-bool MainMenuCrypt(ELEMENTS* crypt)
-{
-    cout << endl;
-    cout << "|======================|" << endl;
-    cout << "Choose an option: " << endl;
-    cout << "1. Encryption" << endl;
-    cout << "2. Decryption" << endl;
-    cout << "3. Exit" << endl;
-    cout << "|======================|" << endl;
 
-retry1:
-
-    int option;
-    cin >> option;
-
-    switch (option)
-    {
-    case 1:
-        Encryption(crypt);
-        break;
-
-    case 2:
-        Decryption(crypt);
-        break;
-
-    case 3:
-        exit();
-        return 0;
-
-    default:
-        cout << "Incorrect input" << endl;
-        goto retry1;
-    }
-    return true;
-}
-*/
 void differenceOfSets(ELEMENTS* crypt, int brCrypt)
 {
 	int converter;
@@ -208,13 +234,13 @@ void differenceOfSets(ELEMENTS* crypt, int brCrypt)
 	cout << "Enter the lenght of the array2: "; cin >> countB;
 	cout << "-----------------------------------" << endl;
 
-	cout << "First Elementns: ";
+	cout << "First Elements: ";
 	for (int i = 0; i < brCrypt; i++)
 	{
 		cin >> crypt[i].Text;
 	}
 
-	cout << "Second Elementns: ";
+	cout << "Second Elements: ";
 	for (int i = 0; i < countB; i++)
 	{
 		cin >> b[i];
@@ -231,12 +257,27 @@ void differenceOfSets(ELEMENTS* crypt, int brCrypt)
 		}
 	}
 
+	char found[100];
+	int br = 0;
+
+	cout << "-----------------------------------" << endl;
+
+	cout << "Difference of set: ";
 	for (int i = 0; i < brCrypt; i++)
 	{
 		if (crypt[i].Text != '`')
-			Encryption(crypt, brCrypt);
+		{
+			found[br++] = crypt[i].Text;
+			cout << crypt[i].Text << " ";
+		}
+			
 	}
+	cout << endl;
+
+	Encryption(found, br);
 }
+
+//----------------------------------Functions---------------------------------------\\
 
 bool MainMenu(ELEMENTS* crypt, int brCrypt)
 {
@@ -244,8 +285,9 @@ bool MainMenu(ELEMENTS* crypt, int brCrypt)
 	cout << "|======================|" << endl;
 	cout << "Choose an option: " << endl;
 	cout << "1. Difference Of Sets" << endl;
-	cout << "2. Decryption" << endl;
-	cout << "3. Exit" << endl;
+	cout << "2. Merge Of Sets" << endl;
+	cout << "3. " << endl;
+	cout << "4. Exit" << endl;
 	cout << "|======================|" << endl;
 
 retry1:
@@ -260,15 +302,15 @@ retry1:
 		break;
 
 	case 2:
-		// Sechenie - v progress
+		mergeOfSets(crypt, brCrypt);
 		break;
 
 	case 3:
-		// Obedinenie - napravih papka v komita - na ime obedinenie vutre ima notepad s koda
+		// Sechenie
 		break;
 
 	case 4:
-		//exit();
+		exit();
 		return 0;
 
 	default:
@@ -282,7 +324,6 @@ int main()
 {
 	ELEMENTS crypt[100];
 	int brCrypt = 0;
-	int maxId = 0;
 
     do {
         showMainMenu = MainMenu(crypt, brCrypt);
