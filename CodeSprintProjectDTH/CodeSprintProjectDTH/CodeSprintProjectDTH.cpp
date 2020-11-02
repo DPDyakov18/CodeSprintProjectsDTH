@@ -10,6 +10,7 @@ struct ELEMENTS
 
 //----------------------------------Structure---------------------------------------\\
 
+//function for the end of the program
 void exit()
 {
     cout << endl;
