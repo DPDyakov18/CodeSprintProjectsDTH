@@ -1,8 +1,10 @@
 #include <iostream>
 using namespace std;
 
+//global variable
 bool showMainMenu = true;
 
+//Structure where we have a structure of type char
 struct ELEMENTS
 {
 	char Text;
@@ -23,17 +25,26 @@ void exit()
     cout << "**************************************" << endl;
 }
 
+//function for decryption
 void Decryption(char* crypt, int brCrypt)
 {
+	// import the variables for the function
 	int converter;
 	char decryptedText[100];
 	bool check = true;
 
+	//loop for the operation decrypt
 	for (int i = 0; i < brCrypt; i++)
 	{
 		converter = int(crypt[i]);
 
-		if (converter == '1')
+		if (converter == '0')
+		{
+			check = false;
+			converter = '0';
+		}
+
+		else if (converter == '1')
 		{
 			check = false;
 			converter = '1';
@@ -85,6 +96,7 @@ void Decryption(char* crypt, int brCrypt)
 
 	cout << "Decrypted elements: ";
 
+	//loop for printing the elements which are already decrypt
 	for (int i = 0; i < brCrypt; i++)
 	{
 		//NotePad
@@ -96,12 +108,15 @@ void Decryption(char* crypt, int brCrypt)
 	cout << endl;
 }
 
+//function for encryption
 void Encryption(char* crypt, int brCrypt) 
 {
+	// import the variables and intialize them for the function
 	int converter;
 	char encryptedText[100] = {};
 	bool check = true;
 
+	//loop for the operation 
 	for (int i = 0; i < brCrypt; i++)
 	{
 		converter = int(crypt[i]);
@@ -139,14 +154,17 @@ void Encryption(char* crypt, int brCrypt)
 			converter = 'C';
 		}
 
+		//if check is true than the variable converter will be shifted with 3
 		if (check) converter += 3;
 
+		//the array encryptedText take the value from the variable converter after each loop action
 		encryptedText[i] = char(converter);
 		check = true;
 	}
 
 	cout << "Encrypted elements: ";
 
+	//loop for printing the value from the array
 	for (int i = 0; i < brCrypt; i++)
 	{
 		//NotePad
@@ -154,26 +172,32 @@ void Encryption(char* crypt, int brCrypt)
 	}
 	cout << endl;
 
+	//call the function "Decryption"
 	Decryption(encryptedText, brCrypt);
 }
 
+//function for the merge of the sets
 void mergeOfSets(ELEMENTS* crypt, int brCrypt)
 {
+	
 	char b[100];
 	int countB;
 
+	//output messages 
 	cout << "-----------------------------------" << endl;
 	cout << "Enter the lenght of the array1: "; cin >> brCrypt;
 	cout << "Enter the lenght of the array2: "; cin >> countB;
 	cout << "-----------------------------------" << endl;
 
 	cout << "First Elements: ";
+	//loop for input the first element of the sets
 	for (int i = 0; i < brCrypt; i++)
 	{
 		cin >> crypt[i].Text;
 	}
 
 	cout << "Second Elements: ";
+	//loop for input the second element of the sets
 	for (int i = 0; i < countB; i++)
 	{
 		cin >> b[i];
@@ -182,18 +206,23 @@ void mergeOfSets(ELEMENTS* crypt, int brCrypt)
 	char c[100];
 	int n = brCrypt + countB;
 
+	//counter
 	int br = 0;
-
+	
+	//loop where the array "c" take the values from the first set
 	for (int i = 0; i < brCrypt; i++)
 	{
 		c[i] = crypt[i].Text;
 		br++;
 	}
+
+	//loop where the array "c" take the values from the second set
 	for (int i = 0; i < countB; i++)
 	{
 		c[br++] = b[i];
 	}
 
+	//loop where we isolate the repeating values
 	for (int i = 0; i < brCrypt; i++)
 	{
 		for (int j = brCrypt; j < n; j++)
@@ -211,6 +240,8 @@ void mergeOfSets(ELEMENTS* crypt, int brCrypt)
 	cout << "-----------------------------------" << endl;
 	
 	cout << "Merge of set: ";
+
+	//loop for printing the merge of sets
 	for (int i = 0; i < n; i++)
 	{
 		if (c[i] != '~')
@@ -221,32 +252,41 @@ void mergeOfSets(ELEMENTS* crypt, int brCrypt)
 	}
 	cout << endl;
 
+	//call the function "Encryption"
 	Encryption(found, br1);
 }
 
+//function for the difference of the sets
 void differenceOfSets(ELEMENTS* crypt, int brCrypt)
 {
+	//import the variables
 	int converter;
 	char b[100];
 	int countB = 0;
 
+	//output messages
 	cout << "-----------------------------------" << endl;
 	cout << "Enter the lenght of the array1: "; cin >> brCrypt;
 	cout << "Enter the lenght of the array2: "; cin >> countB;
 	cout << "-----------------------------------" << endl;
 
 	cout << "First Elements: ";
+	
+	//input the first set
 	for (int i = 0; i < brCrypt; i++)
 	{
 		cin >> crypt[i].Text;
 	}
 
 	cout << "Second Elements: ";
+
+	//input the seond set
 	for (int i = 0; i < countB; i++)
 	{
 		cin >> b[i];
 	}
 
+	//loop for isolation the repeatable values
 	for (int i = 0; i < brCrypt; i++)
 	{
 		for (int j = 0; j < countB; j++)
@@ -264,6 +304,8 @@ void differenceOfSets(ELEMENTS* crypt, int brCrypt)
 	cout << "-----------------------------------" << endl;
 
 	cout << "Difference of set: ";
+
+	//loop for printing the difference between the sets
 	for (int i = 0; i < brCrypt; i++)
 	{
 		if (crypt[i].Text != '`')
@@ -275,11 +317,13 @@ void differenceOfSets(ELEMENTS* crypt, int brCrypt)
 	}
 	cout << endl;
 
+	//call the function "Encryption"
 	Encryption(found, br);
 }
 
 //----------------------------------Functions---------------------------------------\\
 
+//this is the function where we print all the menu and where we operate the things
 bool MainMenu(ELEMENTS* crypt, int brCrypt)
 {
 	cout << endl;
@@ -321,11 +365,13 @@ retry1:
 	return true;
 }
 
+//the main function this is the start of the program 
 int main()
 {
 	ELEMENTS crypt[100];
 	int brCrypt = 0;
 
+	//while loop for the menu
     do {
         showMainMenu = MainMenu(crypt, brCrypt);
     } while (showMainMenu != false);
