@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 using namespace std;
 
 //global variable
@@ -11,6 +12,199 @@ struct ELEMENTS
 };
 
 //----------------------------------Structure---------------------------------------\\
+
+//function for Decryption
+void optionDecryption()
+{
+	char words[50];
+	int n;
+	int converter;
+	char decryptWords[50];
+	cout << "Enter the lenght of the letter you want to Decrypt: ";
+	cin >> n;
+	bool check = true;
+
+	cout << "Enter the words you want to Decrypt: ";
+	for (int i = 0; i < n; i++)
+	{
+		cin >> words[i];
+	}
+
+	for (int i = 0; i < n; i++)
+	{
+		converter = int(words[i]);
+
+
+		if (converter == '0')
+		{
+			check = false;
+			converter = '0';
+		}
+
+		else if (converter == '1')
+		{
+			check = false;
+			converter = '1';
+		}
+		else if (converter == '2')
+		{
+			check = false;
+			converter = '2';
+		}
+
+		if (converter == 'a')
+		{
+			check = false;
+			converter = 'x';
+		}
+		else if (converter == 'A')
+		{
+			check = false;
+			converter = 'X';
+		}
+
+		if (converter == 'b')
+		{
+			check = false;
+			converter = 'y';
+		}
+		else if (converter == 'B')
+		{
+			check = false;
+			converter = 'Y';
+		}
+
+		if (converter == 'c')
+		{
+			check = false;
+			converter = 'z';
+		}
+		else if (converter == 'C')
+		{
+			check = false;
+			converter = 'Z';
+		}
+
+		if (check) converter -= 3;
+
+		decryptWords[i] = char(converter);
+		check = true;
+	}
+	cout << "|============|" << endl;
+	cout << "->: ";
+	for (int i = 0; i < n; i++)
+	{
+		cout << decryptWords[i] << " ";
+	}
+	cout << endl;
+	cout << "|============|" << endl;
+	cout << endl;
+}
+
+//function for Encryption
+void optionEncryption()
+{
+	char words[50];
+	int n;
+	int converter;
+	char decryptWords[50];
+	cout << "Enter the lenght of the letter you want to Encrypt: ";
+	cin >> n;
+	bool check = true;
+
+	cout << "Enter the words you want to Encrypt: ";
+	for (int i = 0; i < n; i++)
+	{
+		cin >> words[i];
+	}
+
+	for (int i = 0; i < n; i++)
+	{
+		converter = int(words[i]);
+
+		if (converter == 'x')
+		{
+			check = false;
+			converter = 'a';
+		}
+		else if (converter == 'X')
+		{
+			check = false;
+			converter = 'A';
+		}
+
+		if (converter == 'y')
+		{
+			check = false;
+			converter = 'b';
+		}
+		else if (converter == 'Y')
+		{
+			check = false;
+			converter = 'B';
+		}
+
+		if (converter == 'z')
+		{
+			check = false;
+			converter = 'c';
+		}
+		else if (converter == 'Z')
+		{
+			check = false;
+			converter = 'C';
+		}
+
+		if (check) converter += 3;
+
+		decryptWords[i] = char(converter);
+		check = true;
+	}
+
+	cout << "|============|" << endl;
+	cout << "->: ";
+	for (int i = 0; i < n; i++)
+	{
+		cout << decryptWords[i] << " ";
+	}
+	cout << endl;
+	cout << "|============|" << endl;
+	cout << endl;
+}
+
+// Function for storing Decrypted-Data
+int writeFileDecryption(char* crypt, int brCrypt)
+{
+	ofstream myfile;
+	myfile.open("Decryption.txt");
+	if (myfile.is_open())
+	{
+		for (int i = 0; i < brCrypt; i++)
+		{
+			myfile << crypt[i] << " ";
+		}
+		myfile << " ";
+	}
+	myfile.close();
+	return 0;
+}
+
+// Function for storing Encrypted-Data
+int writeFileEncryption(char* crypt, int brCrypt)
+{
+	ofstream myfile;
+	myfile.open("Encryption.txt");
+	if (myfile.is_open())
+	{
+		for (int i = 0; i < brCrypt; i++)
+		{
+			myfile << crypt[i] << " ";
+		}
+		myfile << " ";
+	}
+	myfile.close();
+	return 0;
+}
 
 //function for the end of the program
 void exit()
@@ -99,7 +293,7 @@ void Decryption(char* crypt, int brCrypt)
 	//loop for printing the elements which are already decrypt
 	for (int i = 0; i < brCrypt; i++)
 	{
-		//NotePad
+		writeFileDecryption(decryptedText, brCrypt);
 		cout << decryptedText[i] << " ";
 	}
 	cout << endl;
@@ -167,13 +361,109 @@ void Encryption(char* crypt, int brCrypt)
 	//loop for printing the value from the array
 	for (int i = 0; i < brCrypt; i++)
 	{
-		//NotePad
+		writeFileEncryption(encryptedText, brCrypt);
 		cout << encryptedText[i] << " ";
 	}
 	cout << endl;
 
 	//call the function "Decryption"
 	Decryption(encryptedText, brCrypt);
+}
+
+
+//function for the section of the sets
+void sectionOfSets(ELEMENTS* crypt, int brCrypt)
+{
+	char a2[100];
+	int n2;
+
+	//output messages 
+	cout << "-----------------------------------" << endl;
+	cout << "Enter the lenght of the array1: "; cin >> brCrypt;
+	cout << "Enter the lenght of the array2: "; cin >> n2;
+	cout << "-----------------------------------" << endl;
+
+	cout << "First Elements: ";
+	//loop for input the first element of the sets
+	for (int i = 0; i < brCrypt; i++)
+	{
+		cin >> crypt[i].Text;
+	}
+	cout << "Second Elements: ";
+	//loop for input the second element of the sets
+	for (int i = 0; i < n2; i++)
+	{
+		cin >> a2[i];
+	}
+
+	int br = 0;
+	for (int i = 0; i < brCrypt; i++)
+	{
+		br++;
+		for (int j = 0; j < brCrypt; j++)
+		{
+			if (crypt[i].Text == crypt[j + br].Text)
+			{
+				crypt[i].Text = '~';
+
+			}
+		}
+
+	}
+
+	br = 0;
+	for (int i = 0; i < n2; i++)
+	{
+		br++;
+		for (int j = 0; j < n2; j++)
+		{
+			if (a2[i] == a2[j + br])
+			{
+				a2[i] = '~';
+
+			}
+		}
+
+	}
+
+	char arr[100];
+	int counter = 0;
+	for (int i = 0; i < brCrypt; i++)
+	{
+		for (int j = 0; j < n2; j++)
+		{
+			if (crypt[i].Text == a2[j])
+			{
+				arr[i] = crypt[i].Text;
+				counter++;
+			}
+
+		}
+		if (counter <= i)
+		{
+			counter++;
+			arr[i] = '~';
+		}
+	}
+
+	char found[100];
+	int br1 = 0;
+	cout << "-----------------------------------" << endl;
+
+	cout << "Section of sets: ";
+	//loop for printing the section of sets
+	for (int i = 0; i < brCrypt; i++)
+	{
+		if (arr[i] != '~')
+		{
+			found[br1++] = arr[i];
+			cout << arr[i] << " ";
+		}
+	}
+	cout << endl;
+
+	//call the function "Encryption"
+	Encryption(found, br1);
 }
 
 //function for the merge of the sets
@@ -260,7 +550,6 @@ void mergeOfSets(ELEMENTS* crypt, int brCrypt)
 void differenceOfSets(ELEMENTS* crypt, int brCrypt)
 {
 	//import the variables
-	int converter;
 	char b[100];
 	int countB = 0;
 
@@ -323,6 +612,41 @@ void differenceOfSets(ELEMENTS* crypt, int brCrypt)
 
 //----------------------------------Functions---------------------------------------\\
 
+bool CryptoMenu(ELEMENTS* crypt, int brCrypt)
+{
+	cout << endl;
+	cout << "|======================|" << endl;
+	cout << "Choose an option: " << endl;
+	cout << "1. Encryption" << endl;
+	cout << "2. Decryption" << endl;
+	cout << "3. Go Back to Main Menu" << endl;
+	cout << "|======================|" << endl;
+
+retry1:
+
+	int option;
+	cin >> option;
+
+	switch (option)
+	{
+	case 1:
+		optionEncryption();
+		break;
+
+	case 2:
+		optionDecryption();
+		break;
+
+	case 3:
+		return 0;
+
+	default:
+		cout << "Incorrect input" << endl;
+		goto retry1;
+	}
+	return true;
+}
+
 //this is the function where we print all the menu and where we operate the things
 bool MainMenu(ELEMENTS* crypt, int brCrypt)
 {
@@ -331,8 +655,8 @@ bool MainMenu(ELEMENTS* crypt, int brCrypt)
 	cout << "Choose an option: " << endl;
 	cout << "1. Difference Of Sets" << endl;
 	cout << "2. Merge Of Sets" << endl;
-	cout << "3. " << endl;
-	cout << "4. Exit" << endl;
+	cout << "3. Section of Sets" << endl;
+	cout << "4. Crypto Menu" << endl;
 	cout << "|======================|" << endl;
 
 retry1:
@@ -351,10 +675,14 @@ retry1:
 		break;
 
 	case 3:
-		// Sechenie
+		sectionOfSets(crypt, brCrypt);
 		break;
 
 	case 4:
+		CryptoMenu(crypt, brCrypt);
+		break;
+
+	case 5:
 		exit();
 		return 0;
 
