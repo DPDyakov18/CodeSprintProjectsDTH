@@ -13,6 +13,21 @@ struct ELEMENTS
 
 //----------------------------------Structure---------------------------------------\\
 
+void checkM(int& a)
+{
+	while (1)
+	{
+		if (cin.fail())
+		{
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			cout << "Incorrect Input" << endl;
+			cout << "Try again ->: "; cin >> a;
+		}
+		if (!cin.fail()) break;
+	}
+}
+
 //function for Decryption
 void optionDecryption()
 {
@@ -21,7 +36,7 @@ void optionDecryption()
 	int converter;
 	char decryptWords[50];
 	cout << "Enter the lenght of the letter you want to Decrypt: ";
-	cin >> n;
+	cin >> n; checkM(n);
 	bool check = true;
 
 	cout << "Enter the words you want to Decrypt: ";
@@ -109,7 +124,7 @@ void optionEncryption()
 	int converter;
 	char decryptWords[50];
 	cout << "Enter the lenght of the letter you want to Encrypt: ";
-	cin >> n;
+	cin >> n; checkM(n);
 	bool check = true;
 
 	cout << "Enter the words you want to Encrypt: ";
@@ -379,8 +394,8 @@ void sectionOfSets(ELEMENTS* crypt, int brCrypt)
 
 	//output messages 
 	cout << "-----------------------------------" << endl;
-	cout << "Enter the lenght of the array1: "; cin >> brCrypt;
-	cout << "Enter the lenght of the array2: "; cin >> n2;
+	cout << "Enter the lenght of the array1: "; cin >> brCrypt; checkM(brCrypt);
+	cout << "Enter the lenght of the array2: "; cin >> n2; checkM(n2);
 	cout << "-----------------------------------" << endl;
 
 	cout << "First Elements: ";
@@ -475,8 +490,8 @@ void mergeOfSets(ELEMENTS* crypt, int brCrypt)
 
 	//output messages 
 	cout << "-----------------------------------" << endl;
-	cout << "Enter the lenght of the array1: "; cin >> brCrypt;
-	cout << "Enter the lenght of the array2: "; cin >> countB;
+	cout << "Enter the lenght of the array1: "; cin >> brCrypt; checkM(brCrypt);
+	cout << "Enter the lenght of the array2: "; cin >> countB; checkM(countB);
 	cout << "-----------------------------------" << endl;
 
 	cout << "First Elements: ";
@@ -555,8 +570,8 @@ void differenceOfSets(ELEMENTS* crypt, int brCrypt)
 
 	//output messages
 	cout << "-----------------------------------" << endl;
-	cout << "Enter the lenght of the array1: "; cin >> brCrypt;
-	cout << "Enter the lenght of the array2: "; cin >> countB;
+	cout << "Enter the lenght of the array1: "; cin >> brCrypt; checkM(brCrypt);
+	cout << "Enter the lenght of the array2: "; cin >> countB; checkM(countB);
 	cout << "-----------------------------------" << endl;
 
 	cout << "First Elements: ";
@@ -625,7 +640,8 @@ bool CryptoMenu(ELEMENTS* crypt, int brCrypt)
 retry1:
 
 	int option;
-	cin >> option;
+	cout << "->: "; cin >> option;
+	checkM(option);
 
 	switch (option)
 	{
@@ -642,6 +658,7 @@ retry1:
 
 	default:
 		cout << "Incorrect input" << endl;
+		cout << "Try again ";
 		goto retry1;
 	}
 	return true;
@@ -657,12 +674,15 @@ bool MainMenu(ELEMENTS* crypt, int brCrypt)
 	cout << "2. Merge Of Sets" << endl;
 	cout << "3. Section of Sets" << endl;
 	cout << "4. Crypto Menu" << endl;
+	cout << "5. Exit" << endl;
 	cout << "|======================|" << endl;
 
 retry1:
 
 	int option;
-	cin >> option;
+	cout << "->: "; cin >> option;
+	checkM(option);
+
 
 	switch (option)
 	{
@@ -688,6 +708,7 @@ retry1:
 
 	default:
 		cout << "Incorrect input" << endl;
+		cout << "Try again ";
 		goto retry1;
 	}
 	return true;
