@@ -5,7 +5,7 @@ using namespace std;
 //global variable
 bool showMainMenu = true;
 
-//Structure where we have a structure of type char
+//Structure where we have stuct a varible of type char
 struct ELEMENTS
 {
 	char Text;
@@ -13,6 +13,7 @@ struct ELEMENTS
 
 //----------------------------------Structure---------------------------------------\\
 
+//function for checking the input of the user
 void checkM(int& a)
 {
 	while (1)
@@ -31,6 +32,7 @@ void checkM(int& a)
 //function for Decryption
 void optionDecryption()
 {
+	//import the variables for the function
 	char words[50];
 	int n;
 	int converter;
@@ -45,6 +47,7 @@ void optionDecryption()
 		cin >> words[i];
 	}
 
+	//loop for the operation decrypt
 	for (int i = 0; i < n; i++)
 	{
 		converter = int(words[i]);
@@ -105,6 +108,8 @@ void optionDecryption()
 		decryptWords[i] = char(converter);
 		check = true;
 	}
+
+	//loop for printing the elements which are already decrypt
 	cout << "|============|" << endl;
 	cout << "->: ";
 	for (int i = 0; i < n; i++)
@@ -119,6 +124,7 @@ void optionDecryption()
 //function for Encryption
 void optionEncryption()
 {
+	//import the variables for the function
 	char words[50];
 	int n;
 	int converter;
@@ -133,6 +139,7 @@ void optionEncryption()
 		cin >> words[i];
 	}
 
+	//loop for the operation encrypt
 	for (int i = 0; i < n; i++)
 	{
 		converter = int(words[i]);
@@ -176,6 +183,7 @@ void optionEncryption()
 		check = true;
 	}
 
+	//loop for printing the elements which are already encrypt
 	cout << "|============|" << endl;
 	cout << "->: ";
 	for (int i = 0; i < n; i++)
@@ -412,6 +420,7 @@ void sectionOfSets(ELEMENTS* crypt, int brCrypt)
 	}
 
 	int br = 0;
+	//checking if there are equivalent variables
 	for (int i = 0; i < brCrypt; i++)
 	{
 		br++;
@@ -427,6 +436,7 @@ void sectionOfSets(ELEMENTS* crypt, int brCrypt)
 	}
 
 	br = 0;
+	//checking if there are equivalent variables
 	for (int i = 0; i < n2; i++)
 	{
 		br++;
@@ -435,7 +445,6 @@ void sectionOfSets(ELEMENTS* crypt, int brCrypt)
 			if (a2[i] == a2[j + br])
 			{
 				a2[i] = '~';
-
 			}
 		}
 
@@ -443,6 +452,7 @@ void sectionOfSets(ELEMENTS* crypt, int brCrypt)
 
 	char arr[100];
 	int counter = 0;
+	//Here we store these equivalent variables
 	for (int i = 0; i < brCrypt; i++)
 	{
 		for (int j = 0; j < n2; j++)
@@ -616,8 +626,7 @@ void differenceOfSets(ELEMENTS* crypt, int brCrypt)
 		{
 			found[br++] = crypt[i].Text;
 			cout << crypt[i].Text << " ";
-		}
-			
+		}	
 	}
 	cout << endl;
 
